@@ -25,3 +25,4 @@ nbdist/
 .nb-gradle/
 
 out/
+!/src/main/java/org/launchcode/models/data/

@@ -27,11 +27,14 @@ repositories {
 
 
 dependencies {
+    compileOnly "org.projectlombok:lombok:1.16.16"
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('mysql:mysql-connector-java')
-	runtime('org.springframework.boot:spring-boot-devtools')
+    compile group: 'javax.validation', name: 'validation-api', version: '1.0.0.GA'
+    compile group: 'org.hibernate', name: 'hibernate-validator', version: '4.2.0.Final'
+    runtime('org.springframework.boot:spring-boot-devtools')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
