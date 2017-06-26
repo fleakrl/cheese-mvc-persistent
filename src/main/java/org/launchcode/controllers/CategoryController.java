@@ -5,13 +5,13 @@ import org.launchcode.models.data.CategoryDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.Arrays;
+import javax.validation.Valid;
 
-/**
- * Created by rebeccahubbard on 6/21/17.
- */
 
 @Controller
 @RequestMapping("category")
@@ -24,4 +24,21 @@ public class CategoryController {
         model.addAttribute("Categories", categoryDao.findAll());
         return "category/index";
     }
+
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public String addHandlerGet(Model model){
+        return "category/add";
+    }
+
+    @RequestMapping(value = "add", method = RequestMethod.POST)
+    public String addHandlerPost(Model model, @ModelAttribute @Valid Category category, Errors errors){
+        if (errors.hasErrors()){
+            model.addAttribute("title","Add Category");
+            return "category/add";
+        } else {
+            categoryDao.save(category);
+            return "redirect:";
+        }
+    }
+
 }
