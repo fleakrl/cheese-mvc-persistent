@@ -27,6 +27,8 @@ public class CategoryController {
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String addHandlerGet(Model model){
+        model.addAttribute("title", "Add Category");
+        model.addAttribute(new Category());
         return "category/add";
     }
 
