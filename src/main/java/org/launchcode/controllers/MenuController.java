@@ -1,6 +1,7 @@
 package org.launchcode.controllers;
 
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import org.launchcode.models.AddMenuItemForm;
 import org.launchcode.models.Menu;
 import org.launchcode.models.data.CheeseDao;
 import org.launchcode.models.data.MenuDao;
@@ -59,6 +60,19 @@ public class MenuController {
         model.addAttribute("menu", menu);
 
         return "menu/view";
+    }
+
+    @RequestMapping(value = "add-item/{menuId}", method = RequestMethod.GET)
+    public String addItem(Model model, @PathVariable("menuID") int id) {
+        Menu menu = menuDao.findOne(id);
+        Iterable cheeses = cheeseDao.findAll();
+
+        AddMenuItemForm form = new AddMenuItemForm(menu,cheeses);
+
+        model.addAttribute("form", form);
+        model.addAttribute("title", "Add Item to Menu" + menu.getName());
+
+        return "menu/add-item";
 
     }
 
