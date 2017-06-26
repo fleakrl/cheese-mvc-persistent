@@ -1,17 +1,18 @@
 package org.launchcode.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * Created by LaunchCode
  */
 @Entity
 public class Cheese {
+
+    @ManyToMany (mappedBy = "cheeses")
+    private List<Menu> menus;
 
     @Id
     @GeneratedValue

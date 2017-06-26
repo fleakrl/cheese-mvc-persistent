@@ -1,7 +1,7 @@
 package org.launchcode.models;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.annotation.Generated;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -14,22 +14,28 @@ public class Menu {
         this.name = name;
     }
 
-    public Menu(){
+    public Menu() {
 
     }
 
     private String name;
 
-   private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-   private List<Cheese> cheeses;
+    @ManyToMany
+    private List<Cheese> cheeses;
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getId() {
         return id;
     }
 
-    @ManyToMany
+
     public List<Cheese> getCheeses() {
         return cheeses;
     }
@@ -42,7 +48,7 @@ public class Menu {
         this.name = name;
     }
 
-    public void addItem(Cheese item){
+    public void addItem(Cheese item) {
         cheeses.add(item);
     }
 
