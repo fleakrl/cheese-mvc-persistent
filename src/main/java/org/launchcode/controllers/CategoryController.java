@@ -21,6 +21,7 @@ public class CategoryController {
 
     @RequestMapping("")
     public String indexHandler(Model model){
+        model.addAttribute("title", "Categories");
         model.addAttribute("Categories", categoryDao.findAll());
         return "category/index";
     }

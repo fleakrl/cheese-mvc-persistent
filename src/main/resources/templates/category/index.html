@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org/">
-<head th:replace="fragments :: head">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
 
-</head>
-    <body>
+<body class="container">
 
-    <nav th:replace="fragments :: navigation"></nav>
+<h1 th:text="${title}">Default Title</h1>
 
-    <h3> Categories:</h3>
+<nav th:replace="fragments :: navigation"></nav>
+    <a href="/category/add">Add</a>
+
 
         <p th:each="category: ${Categories}">
             <ul>

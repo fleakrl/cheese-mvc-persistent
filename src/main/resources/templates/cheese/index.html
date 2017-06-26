@@ -7,6 +7,9 @@
 <h1 th:text="${title}">Default Title</h1>
 
 <nav th:replace="fragments :: navigation"></nav>
+    <a href="/cheese/add">Add</a> |    <a href="/cheese/remove">Remove</a>
+
+
 
 <p th:unless="${cheeses} and ${cheeses.size()}">no cheese :(</p>
 
@@ -21,7 +24,7 @@
 
     <tr th:each="cheese : ${cheeses}">
         <td th:text="${cheese.name}"></td>
-        <td th:text="${cheese.description}"></td>k
+        <td th:text="${cheese.description}"></td>
         <td th:text="${cheese.category.name}"></td>
     </tr>
 
