@@ -2,6 +2,7 @@ package org.launchcode.controllers;
 
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.launchcode.models.AddMenuItemForm;
+import org.launchcode.models.Cheese;
 import org.launchcode.models.Menu;
 import org.launchcode.models.data.CheeseDao;
 import org.launchcode.models.data.MenuDao;
@@ -63,16 +64,31 @@ public class MenuController {
     }
 
     @RequestMapping(value = "add-item/{menuId}", method = RequestMethod.GET)
-    public String addItem(Model model, @PathVariable("menuID") int id) {
+    public String addItem(Model model, @PathVariable("menuId") int id) {
         Menu menu = menuDao.findOne(id);
         Iterable cheeses = cheeseDao.findAll();
 
         AddMenuItemForm form = new AddMenuItemForm(menu,cheeses);
 
         model.addAttribute("form", form);
-        model.addAttribute("title", "Add Item to Menu" + menu.getName());
+        model.addAttribute("title", "Add Item to Menu: " + menu.getName());
 
         return "menu/add-item";
+
+    }
+
+    @RequestMapping(value = "/add-item", method = RequestMethod.POST)
+    public String addItem(Model model, @ModelAttribute @Valid AddMenuItemForm form, Errors errors){
+        if (errors.hasErrors()) {
+            model.addAttribute("form", "form");
+            return "menu/add-item";
+        }
+
+        Cheese addedCheese = cheeseDao.findOne(form.getCheeseId());
+        Menu menu = menuDao.findOne(form.getMenuId());
+        menu.addItem(addedCheese);
+        menuDao.save(menu);
+        return "redirect:/menu/view/" + menu.getId();
 
     }
 
